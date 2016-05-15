@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.bugtags.library.plugin'
+apply plugin: 'com.neenbedankt.android-apt'
+
+//　打包时间
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.bzh.dytt"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 3
+        versionName "3.0"
+        multiDexEnabled true
+
+        // 多渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    // 渠道包
+    productFlavors {
+        _wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        _pugongying {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "pugongying"]
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = "DYTT_${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+    }
+}
+
+dependencies {
+    compile project(':data')
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:palette-v7:23.3.0'
+    
+    
+    compile 'com.android.support:support-annotations:23.3.0'
+    compile 'io.janusproject.guava:guava:19.0.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.bugtags.library:bugtags-lib:latest.integration'
+    compile 'com.jaeger.statusbaruitl:library:1.0.0'
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.8@aar') {
+        transitive = true
+    }
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    androidTestCompile 'com.android.support:support-annotations:23.3.0'
+    androidTestCompile 'com.android.support:design:23.3.0'
+    androidTestCompile 'com.android.support:appcompat-v7:23.3.0'
+    androidTestCompile 'org.mockito:mockito-core:2.0.43-beta'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+    testCompile 'org.testng:testng:6.9.6'
+    testCompile 'junit:junit:4.12'
+    compile project(':lib_common')
+    compile project(':swipebackactivity')
+    compile project(':lib_recycler')
+}
+
+bugtags {
+    appKey "9c1b1a3234ceeb5b9c531177a93b65ec"
+    appSecret "74111b89885d79901d577148cfc013d0"
+}

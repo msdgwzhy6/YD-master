@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DYTT-master.iml" filepath="$PROJECT_DIR$/DYTT-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib_common/lib_common.iml" filepath="$PROJECT_DIR$/lib_common/lib_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib_log/lib_log.iml" filepath="$PROJECT_DIR$/lib_log/lib_log.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib_recycler/lib_recycler.iml" filepath="$PROJECT_DIR$/lib_recycler/lib_recycler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swipebackactivity/swipebackactivity.iml" filepath="$PROJECT_DIR$/swipebackactivity/swipebackactivity.iml" />
+    </modules>
+  </component>
+</project>

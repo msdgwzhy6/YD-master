@@ -1,0 +1,1 @@
+include ':app', ':data', ':lib_common', ':lib_recycler', ':lib_log', ':swipebackactivity'
