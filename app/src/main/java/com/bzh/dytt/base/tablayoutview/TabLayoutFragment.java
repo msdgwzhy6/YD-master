@@ -1,10 +1,13 @@
 package com.bzh.dytt.base.tablayoutview;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.bzh.common.context.GlobalContext;
+import com.bzh.common.utils.SharePreferenceUtil;
 import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseFragment;
 
@@ -34,6 +37,7 @@ public abstract class TabLayoutFragment extends BaseFragment implements TabLayou
 
     @Override
     protected int getContentView() {
+
         return R.layout.comm_tab_layout;
     }
 
@@ -44,29 +48,49 @@ public abstract class TabLayoutFragment extends BaseFragment implements TabLayou
 
     @Override
     protected void onFirstUserVisible() {
+
         tabLayoutPresenter.onFirstUserVisible();
     }
 
     @Override
     protected void onUserVisible() {
+
         tabLayoutPresenter.onUserVisible();
     }
 
     @Override
     protected void onUserInvisible() {
+
         tabLayoutPresenter.onUserInvisible();
     }
 
     @Override
     public void initContainer(PagerAdapter pagerAdapter) {
+
         container.setOffscreenPageLimit(0);
         container.setAdapter(pagerAdapter);
     }
 
     @Override
     public void initTabLayout() {
+
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setTabTextColors(Color.parseColor("#b3ffffff"), Color.WHITE);
         tabLayout.setupWithViewPager(container);
+        
+        setTabColor(tabLayout);
+    }
+
+    public void setTabColor(TabLayout tabLayout) {
+
+        int vibrantColor = GlobalContext.getInstance().
+                getSharedPreferences(SharePreferenceUtil
+                        .SHARED_PREFERENCE_NAME, Context
+                        .MODE_PRIVATE)
+                .getInt(SharePreferenceUtil.VIBRANT, 0);
+
+        if (tabLayout != null) {
+            tabLayout.setBackgroundColor(vibrantColor);
+        }
     }
 }

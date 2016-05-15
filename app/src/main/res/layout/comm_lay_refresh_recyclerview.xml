@@ -7,7 +7,10 @@
     <LinearLayout
         android:id="@id/layoutContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        >
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@id/refreshLayout"
@@ -17,7 +20,8 @@
             <com.bzh.recycler.ExRecyclerView
                 android:id="@id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                />
 
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>

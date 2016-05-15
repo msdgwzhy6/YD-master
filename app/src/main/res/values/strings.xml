@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
     <string name="label_publish_time">发布时间：%1$s</string>
     <string name="un_ftpurl_label">尚未提供下载地址~稍后再试哦</string>
     <string name="un_install_xunlei_label">该影片链接为迅雷P2P资源，须安装迅雷下载工具才能进行下载！</string>
@@ -22,6 +22,7 @@
     <string name="splash_version">V %1$s</string>
     <string name="common_i_know">知道啦！</string>
     <string name="request_storage_permission">请允许此应用读写文件用于改变主题</string>
+    <string name="action_about">关于</string>
 
 
 </resources>

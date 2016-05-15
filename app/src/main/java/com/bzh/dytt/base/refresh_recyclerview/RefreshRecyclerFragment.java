@@ -150,7 +150,7 @@ public abstract class RefreshRecyclerFragment extends PageFragment implements Re
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0, 0, 0, UIUtils.dip2px(1));
+            outRect.set(0, 0, 0, UIUtils.dip2px(4));
         }
 
         @Override

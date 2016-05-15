@@ -132,7 +132,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     /*
     设置toolbar
      */
-    public int setToolBar(FloatingActionButton floatingActionButton, Toolbar toolbar, boolean isChangeToolbar, boolean isChangeStatusBar, DrawerLayout drawerLayout) {
+    public int setToolBar(FloatingActionButton floatingActionButton, Toolbar toolbar, boolean isChangeToolbar,
+                          boolean isChangeStatusBar, DrawerLayout drawerLayout
+                          ) {
         int vibrantColor = getSharedPreferences(SharePreferenceUtil.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getInt(SharePreferenceUtil.VIBRANT, 0);
         int mutedColor = getSharedPreferences(SharePreferenceUtil.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getInt(SharePreferenceUtil.MUTED, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -157,6 +159,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             else
                 StatusBarUtil.setColorForDrawerLayout(this, drawerLayout, vibrantColor);
         }
+
         return vibrantColor;
     }
 

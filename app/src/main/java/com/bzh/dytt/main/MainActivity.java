@@ -62,6 +62,9 @@ public class MainActivity extends BaseActivity
         LinearLayout llImage = (LinearLayout) headerLayout.findViewById(R.id.side_image);
         TextView imageDescription = (TextView) headerLayout.findViewById(R.id.image_description);
 
+        //设置toolbar颜色
+        setToolBar(null, toolbar, true, false, drawer);
+        
         if (new File(getFilesDir().getPath() + "/bg.jpg").exists()) {
             BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), getFilesDir().getPath() + "/bg.jpg");
             llImage.setBackground(bitmapDrawable);
@@ -138,7 +141,7 @@ public class MainActivity extends BaseActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if ((System.currentTimeMillis() - mPreTime) > 2000) {
-                Snackbar.make(container, "再按一次退出", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(toolbar, "再按一次退出", Snackbar.LENGTH_SHORT).show();
                 mPreTime = System.currentTimeMillis();
             } else {
                 super.onBackPressed();
