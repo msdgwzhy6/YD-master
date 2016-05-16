@@ -4,6 +4,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.bzh.dytt.base.basic.BaseActivity;
@@ -39,6 +40,8 @@ public abstract class RefreshRecyclerPresenter<Entity, Entities>
         ExRecyclerView.OnLoadMoreListener {
 
     private static final String TAG = "REPresenter";
+
+    private RecyclerView.LayoutManager mLinearLayoutManager;
 
     /**
      * The definition of a page request data mode
@@ -87,6 +90,11 @@ public abstract class RefreshRecyclerPresenter<Entity, Entities>
         this.iView = iView;
     }
 
+    public RecyclerView.LayoutManager getLayoutManager
+            () {
+        return null;
+    }
+
     @Override
     public void initFragmentConfig() {
 
@@ -96,7 +104,10 @@ public abstract class RefreshRecyclerPresenter<Entity, Entities>
         exCommonAdapter = getExCommonAdapter();
         iView.getRecyclerView().setOnItemClickListener(this);
         iView.getRecyclerView().setOnLoadingMoreListener(this);
-        iView.initRecyclerView(new LinearLayoutManager(baseActivity), exCommonAdapter);
+        
+        mLinearLayoutManager = getLayoutManager()==null?new LinearLayoutManager(baseActivity):getLayoutManager();
+        
+        iView.initRecyclerView(mLinearLayoutManager, exCommonAdapter);
         iView.getSwipeRefreshLayout().setOnRefreshListener(this);
         iView.getSwipeRefreshLayout().setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,

@@ -1,5 +1,6 @@
 package com.bzh.dytt.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseActivity;
 import com.bzh.dytt.base.basic.IActivityPresenter;
 import com.bzh.dytt.film.FilmMainFragment;
+import com.bzh.dytt.picture.PictureMeiZhiFragment;
+import com.bzh.dytt.setting_about.SettingsActivity;
 import com.bzh.dytt.video.VideoFragment;
 
 import java.util.ArrayList;
@@ -161,7 +164,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
             }
             break;*/
             case R.id.nav_setting: {
-
+                baseActivity.startActivity(new Intent(baseActivity, SettingsActivity.class));
             }
             break;
         }
@@ -202,7 +205,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
             case VIDEO:
                 return new VideoFragment();
             case PICTURE:
-                return new VideoFragment();
+                return PictureMeiZhiFragment.newInstance();
             case NEWS:
                 return new VideoFragment();
             /*case NEWS:

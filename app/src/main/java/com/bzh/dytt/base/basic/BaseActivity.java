@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import com.bzh.common.utils.SharePreferenceUtil;
 import com.bzh.dytt.base.eventbus.EventCenter;
 import com.jaeger.library.StatusBarUtil;
-import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -94,13 +93,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     

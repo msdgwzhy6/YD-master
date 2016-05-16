@@ -1,17 +1,12 @@
 package com.bzh.dytt;
 
-import com.bzh.common.*;
 import com.bzh.common.context.GlobalContext;
+import com.bzh.dytt.base.basic.BaseAppManager;
 import com.bzh.log.MyLog;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * ==========================================================<br>
- * <b>版权</b>：　　　音悦台 版权所有(c)2016<br>
- * <b>作者</b>：　　  zhihua.bie@yinyuetai.com<br>
- * <b>创建日期</b>：　16-3-17<br>
- * <b>描述</b>：　　　<br>
- * <b>版本</b>：　    V1.0<br>
- * <b>修订历史</b>：　<br>
  * ==========================================================<br>
  */
 public class MyApplicatioin extends GlobalContext {
@@ -21,5 +16,12 @@ public class MyApplicatioin extends GlobalContext {
         super.onCreate();
 
         MyLog.init(BuildConfig.DEBUG);
+    }
+
+    public void exitApp() {
+        BaseAppManager.getInstance().clear();
+        System.gc();
+        MobclickAgent.onKillProcess(this);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

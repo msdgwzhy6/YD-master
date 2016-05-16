@@ -73,6 +73,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
         finish();
     }
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {

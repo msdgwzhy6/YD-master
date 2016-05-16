@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.bzh.common.utils.SharePreferenceUtil;
 import com.bzh.dytt.R;
-import com.umeng.analytics.MobclickAgent;
 
 
 
@@ -18,13 +17,13 @@ public class BaseFragmentV extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(getClass().getSimpleName());
+//        MobclickAgent.onPageStart(getClass().getSimpleName());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(getClass().getSimpleName());
+//        MobclickAgent.onPageEnd(getClass().getSimpleName());
     }
 
     public void setSwipeRefreshLayoutColor(SwipeRefreshLayout swipeRefreshLayout){

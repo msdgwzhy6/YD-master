@@ -5,15 +5,15 @@
         <item
             android:id="@+id/nav_news"
             android:icon="@drawable/ic_news"
-            android:title="新闻阅读" />
+            android:title="先闻先得" />
         <item
             android:id="@+id/nav_film"
             android:icon="@drawable/ic_film"
-            android:title="最热电影" />
+            android:title="电影速递" />
         <item
             android:id="@+id/nav_video"
             android:icon="@drawable/ic_video"
-            android:title="视频爽看" />
+            android:title="视频爽播" />
         <item
             android:id="@+id/nav_picture"
             android:icon="@drawable/ic_picture"

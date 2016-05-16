@@ -74,7 +74,8 @@ public abstract class TabLayoutFragment extends BaseFragment implements TabLayou
     @Override
     public void initTabLayout() {
 
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //scroll适合很多tabs的情况
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setTabTextColors(Color.parseColor("#b3ffffff"), Color.WHITE);
         tabLayout.setupWithViewPager(container);
         

@@ -13,7 +13,6 @@ import com.bugtags.library.Bugtags;
 import com.bzh.common.utils.SharePreferenceUtil;
 import com.example.swipebackactivity.app.SwipeBackActivity;
 import com.jaeger.library.StatusBarUtil;
-import com.umeng.analytics.MobclickAgent;
 
 
 public class BaseActivityV extends SwipeBackActivity {
@@ -23,7 +22,7 @@ public class BaseActivityV extends SwipeBackActivity {
 
         super.onResume();
         Bugtags.onResume(this);
-        MobclickAgent.onResume(this);
+//        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -31,7 +30,7 @@ public class BaseActivityV extends SwipeBackActivity {
 
         super.onPause();
         Bugtags.onPause(this);
-        MobclickAgent.onPause(this);
+//        MobclickAgent.onPause(this);
     }
 
     @Override

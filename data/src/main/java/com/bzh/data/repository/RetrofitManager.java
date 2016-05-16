@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.bzh.common.context.GlobalContext;
 import com.bzh.data.film.IFilmService;
+import com.bzh.data.picture.IPictureService;
 
 import java.io.File;
 
@@ -11,6 +12,7 @@ import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
@@ -27,6 +29,8 @@ public class RetrofitManager {
 
 
     private final IFilmService filmService;
+
+    private final IPictureService mIPictureService;
 
 
     private static RetrofitManager retrofitManager;
@@ -59,15 +63,16 @@ public class RetrofitManager {
 
 
         Retrofit meiZiRetrofit = new Retrofit.Builder()
-                .baseUrl("http://www.mzitu.com")
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .baseUrl("http://gank.io/api/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(okHttpClient)
+//                .client(okHttpClient)
                 .build();
 
 
         filmService = retrofit.create(IFilmService.class);
 
+        mIPictureService = meiZiRetrofit.create(IPictureService.class);
     }
 
     public static RetrofitManager getInstance() {
@@ -93,6 +98,12 @@ public class RetrofitManager {
     public IFilmService getFilmService() {
 
         return filmService;
+    }
+
+
+    public IPictureService getIPictureService() {
+
+        return mIPictureService;
     }
 
 }

@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.Random;
 
 import rx.Observer;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -54,6 +55,8 @@ public class SplashPresenterImpl implements Presenter {
     private SplashView mSplashView = null;
 
     private SplashInteractor mSplashInteractor = null;
+
+    private Subscription mSubscription;
 
     public SplashPresenterImpl(Context context, SplashView splashView) {
 
@@ -126,7 +129,11 @@ public class SplashPresenterImpl implements Presenter {
 
     public void getBackground() {
 
-        Repository.getInstance().getImage().subscribeOn(Schedulers.io()).
+        //侧边栏图片描述
+//将推按的日期啊什么的存储起来
+//                        mSplashView.navigateToHomePage();
+//                        mSplashView.navigateToHomePage();
+        mSubscription = Repository.getInstance().getImage().subscribeOn(Schedulers.io()).
                 map(new Func1<ImageResponse, Boolean>() {
 
                     @Override
@@ -213,4 +220,6 @@ public class SplashPresenterImpl implements Presenter {
         };
         return ContextCompat.getColor(mContext, primaryInt[new Random().nextInt(14)]);
     }
+
+    
 }
