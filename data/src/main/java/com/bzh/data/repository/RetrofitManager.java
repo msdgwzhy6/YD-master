@@ -3,13 +3,18 @@ package com.bzh.data.repository;
 import android.content.Context;
 
 import com.bzh.common.context.GlobalContext;
+import com.bzh.common.utils.NetWorkUtil;
 import com.bzh.data.film.IFilmService;
+import com.bzh.data.picture.IMeizhiService;
 import com.bzh.data.picture.IPictureService;
 
 import java.io.File;
+import java.io.IOException;
 
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,11 +36,34 @@ public class RetrofitManager {
     private final IFilmService filmService;
 
     private final IPictureService mIPictureService;
+    private final IMeizhiService mIMeizhiService;
 
 
     private static RetrofitManager retrofitManager;
 
 
+    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Response originalResponse = chain.proceed(chain.request());
+            if (NetWorkUtil.isNetWorkAvailable(GlobalContext.getInstance())) {
+                int maxAge = 60; // 在线缓存在1分钟内可读取
+                return originalResponse.newBuilder()
+                        .removeHeader("Pragma")
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, max-age=" + maxAge)
+                        .build();
+            } else {
+                int maxStale = 60 * 60 * 24 * 28; // 离线时缓存保存4周
+                return originalResponse.newBuilder()
+                        .removeHeader("Pragma")
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                        .build();
+            }
+        }
+    };
+    
     private RetrofitManager(Context context) {
 
         int cacheSize = 10 * 1024 * 1024;
@@ -62,17 +90,28 @@ public class RetrofitManager {
                 .build();
 
 
+        
+
         Retrofit meiZiRetrofit = new Retrofit.Builder()
                 .baseUrl("http://gank.io/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                .client(okHttpClient)
+                .client(okHttpClient)
+                .build();
+
+        Retrofit pictureRetrofit = new Retrofit.Builder()
+                .baseUrl("http://image.baidu.com/data/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(okHttpClient)
                 .build();
 
 
         filmService = retrofit.create(IFilmService.class);
 
-        mIPictureService = meiZiRetrofit.create(IPictureService.class);
+        mIMeizhiService = meiZiRetrofit.create(IMeizhiService.class);
+
+        mIPictureService = pictureRetrofit.create(IPictureService.class);
     }
 
     public static RetrofitManager getInstance() {
@@ -100,6 +139,11 @@ public class RetrofitManager {
         return filmService;
     }
 
+
+    public IMeizhiService getIMezhiService() {
+
+        return mIMeizhiService;
+    }
 
     public IPictureService getIPictureService() {
 

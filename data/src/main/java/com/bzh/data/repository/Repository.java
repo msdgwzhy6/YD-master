@@ -8,9 +8,14 @@ import com.bzh.data.film.FilmNetWorkDataStore;
 import com.bzh.data.film.IFilmDataStore;
 import com.bzh.data.film.IFilmService;
 import com.bzh.data.image.ImageResponse;
+import com.bzh.data.picture.IPictureDataStore;
+import com.bzh.data.picture.IPictureService;
+import com.bzh.data.picture.PictureNetWorkDataStore;
+import com.bzh.data.picture.bean.MeiNvs;
 import com.bzh.data.zhihu.ZhihuRequest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 
@@ -24,11 +29,13 @@ import rx.Observable;
  * <b>修订历史</b>：　<br>
  * ==========================================================<br>
  */
-public class Repository implements IFilmDataStore {
+public class Repository implements IFilmDataStore,IPictureDataStore{
 
     private static volatile Repository repository;
 
     private static volatile IFilmService filmService;
+    
+    private static volatile IPictureService mIPictureService;
 
 
     public static Repository getInstance() {
@@ -41,6 +48,7 @@ public class Repository implements IFilmDataStore {
                     tmp = new Repository();
                     repository = tmp;
                     filmService = RetrofitManager.getInstance().getFilmService();
+                    mIPictureService = RetrofitManager.getInstance().getIPictureService();
                 }
             }
         }
@@ -60,6 +68,17 @@ public class Repository implements IFilmDataStore {
             filmNetWorkDataStore = new FilmNetWorkDataStore(filmService);
         }
         return filmNetWorkDataStore;
+    }
+
+    private IPictureDataStore mIPictureDataStore;
+
+    private IPictureDataStore getIPictureDataStore() {
+
+        if (mIPictureDataStore==null) {
+            mIPictureDataStore = new PictureNetWorkDataStore(mIPictureService);
+        }
+
+        return mIPictureDataStore;
     }
 
 
@@ -97,5 +116,11 @@ public class Repository implements IFilmDataStore {
     public Observable<ImageResponse> getImage() {
 
         return ZhihuRequest.getZhihuApi().getImage();
+    }
+
+    @Override
+    public Observable<List<MeiNvs.ImgsEntity>> getMeiNv(String col, @IntRange(from = 1, to = 99) int pn
+                                                        ) {
+        return getIPictureDataStore().getMeiNv(col,pn);
     }
 }

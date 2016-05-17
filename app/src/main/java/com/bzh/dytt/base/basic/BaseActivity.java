@@ -19,6 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * ==========================================================<br>
@@ -36,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private Unbinder mBind;
 
+    private CompositeSubscription mCompositeSubscription;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         activityConfig = new ActivityConfig();
@@ -52,6 +56,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (activityConfig.isApplyEventBus) {
             EventBus.getDefault().register(this);
         }
+        
+    }
+
+    public void addSubscription(Subscription s) {
+        if (this.mCompositeSubscription == null) {
+            this.mCompositeSubscription = new CompositeSubscription();
+        }
+
+        this.mCompositeSubscription.add(s);
     }
 
     @Override

@@ -71,6 +71,7 @@ public abstract class TabLayoutFragment extends BaseFragment implements TabLayou
         container.setAdapter(pagerAdapter);
     }
 
+
     @Override
     public void initTabLayout() {
 

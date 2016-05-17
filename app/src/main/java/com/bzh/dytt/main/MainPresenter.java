@@ -12,7 +12,7 @@ import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseActivity;
 import com.bzh.dytt.base.basic.IActivityPresenter;
 import com.bzh.dytt.film.FilmMainFragment;
-import com.bzh.dytt.picture.PictureMeiZhiFragment;
+import com.bzh.dytt.picture.PictureMainFragment;
 import com.bzh.dytt.setting_about.SettingsActivity;
 import com.bzh.dytt.video.VideoFragment;
 
@@ -62,7 +62,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        iMainView.initToolbar("简阅");
+        iMainView.initToolbar("一点");
         iMainView.initDrawerToggle();
         iMainView.setNavigationItemSelectedListener(this);
         innerPageAdapter = new InnerPageAdapter(baseActivity.getSupportFragmentManager());
@@ -205,7 +205,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
             case VIDEO:
                 return new VideoFragment();
             case PICTURE:
-                return PictureMeiZhiFragment.newInstance();
+                return PictureMainFragment.newInstance();
             case NEWS:
                 return new VideoFragment();
             /*case NEWS:

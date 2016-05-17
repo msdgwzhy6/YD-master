@@ -42,7 +42,7 @@ public class MainActivityTest {
     @Test
     public void testTitleDisplay() {
         onView(isAssignableFrom(Toolbar.class))
-                .check(matches(withToolbarTitle(is("简阅"))));
+                .check(matches(withToolbarTitle(is("一点"))));
         onView(withContentDescription(R.string.navigation_drawer_open))
                 .perform(click());
     }

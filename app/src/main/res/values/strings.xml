@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">简阅</string>
+    <string name="app_name">一点</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -23,7 +23,7 @@
     <string name="common_set_read">标记为已读</string>
     <string name="common_set_unread">标记为未读</string>
     <string name="share">分享</string>
-    <string name="share_tail">分享自简阅，美美的体验</string>
+    <string name="share_tail">分享自蝈蝈，美美的体验</string>
     <string name="fragment_video_get_url">正在获取播放地址</string>
     <string name="common_loading">正在加载……</string>
     <string name="toast_wifi_refresh_data">非WI-FI下不自动加载数据</string>
@@ -38,6 +38,7 @@
     <string name="activity_setting_title">设置</string>
     <string name="ask_saving_picture">保存到手机？</string>
     <string name="title_activity_picture">PictureActivity</string>
+    <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
 
 
 </resources>
