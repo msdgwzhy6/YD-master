@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bzh.common.utils.SharePreferenceUtil;
-import com.bzh.dytt.MyApplicatioin;
 import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseActivity;
 import com.bzh.dytt.base.widget.XViewPager;
@@ -145,8 +144,7 @@ public class MainActivity extends BaseActivity
                 Snackbar.make(toolbar, "再按一次退出", Snackbar.LENGTH_SHORT).show();
                 mPreTime = System.currentTimeMillis();
             } else {
-//                super.onBackPressed();
-                ((MyApplicatioin)getApplication()).exitApp();
+                super.onBackPressed();
             }
         }
     }

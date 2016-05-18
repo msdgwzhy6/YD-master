@@ -1,7 +1,11 @@
 package com.bzh.dytt.film;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
+import com.bzh.common.context.GlobalContext;
+import com.bzh.common.utils.ScreenUtil;
 import com.bzh.data.basic.BaseInfoEntity;
 import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseActivity;
@@ -45,8 +49,21 @@ public abstract class BaseFilmInfoPresenter extends RefreshRecyclerPresenter<Bas
                 viewHolder.setText(R.id.tv_film_name, item.getName());
                 viewHolder.setText(R.id.tv_film_publish_time, getBaseActivity().getResources().getString(R.string
                         .label_publish_time, item.getPublishTime()));
+
+                runEnterAnimation(viewHolder.itemView, viewHolder.getAdapterPosition());
             }
         };
+    }
+
+    private void runEnterAnimation(View view, int position) {
+
+        view.setTranslationY(ScreenUtil.getScreenHight(GlobalContext.getInstance()));
+        view.animate()
+                .translationY(0)
+                .setStartDelay(100 * (position % 5))
+                .setInterpolator(new DecelerateInterpolator(3.f))
+                .setDuration(700)
+                .start();
     }
 
     @Override

@@ -5,8 +5,10 @@ import android.content.Context;
 import com.bzh.common.context.GlobalContext;
 import com.bzh.common.utils.NetWorkUtil;
 import com.bzh.data.film.IFilmService;
+import com.bzh.data.guokr.IGuoKrService;
 import com.bzh.data.picture.IMeizhiService;
 import com.bzh.data.picture.IPictureService;
+import com.bzh.data.weixin.IWeiXinService;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,15 +38,21 @@ public class RetrofitManager {
     private final IFilmService filmService;
 
     private final IPictureService mIPictureService;
+
     private final IMeizhiService mIMeizhiService;
 
+    private final IGuoKrService mIGuoKrService;
+
+    private final IWeiXinService mIWeiXinService;
 
     private static RetrofitManager retrofitManager;
 
 
     private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+
         @Override
         public Response intercept(Chain chain) throws IOException {
+
             Response originalResponse = chain.proceed(chain.request());
             if (NetWorkUtil.isNetWorkAvailable(GlobalContext.getInstance())) {
                 int maxAge = 60; // 在线缓存在1分钟内可读取
@@ -63,7 +71,7 @@ public class RetrofitManager {
             }
         }
     };
-    
+
     private RetrofitManager(Context context) {
 
         int cacheSize = 10 * 1024 * 1024;
@@ -90,14 +98,14 @@ public class RetrofitManager {
                 .build();
 
 
-        
 
-        Retrofit meiZiRetrofit = new Retrofit.Builder()
+        Retrofit meizhiRetrofit = new Retrofit.Builder()
                 .baseUrl("http://gank.io/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
+        
 
         Retrofit pictureRetrofit = new Retrofit.Builder()
                 .baseUrl("http://image.baidu.com/data/")
@@ -106,12 +114,39 @@ public class RetrofitManager {
                 .client(okHttpClient)
                 .build();
 
+        //---------------news的加拦截器的okhttp------------------
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                //addNetworkInterceptor 让所有网络请求都附上你的拦截器
+                .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+                .cache(cache)
+                .build();
+
+        Retrofit weiXinRetrofit = new Retrofit.Builder()
+                .baseUrl("http://api.huceo.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(client)
+                .build();
+
+
+        Retrofit guokrRetrofit = new Retrofit.Builder()
+                .baseUrl("http://apis.guokr.com/minisite/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(client)
+                .build();
 
         filmService = retrofit.create(IFilmService.class);
 
-        mIMeizhiService = meiZiRetrofit.create(IMeizhiService.class);
+        mIMeizhiService = meizhiRetrofit.create(IMeizhiService.class);
 
         mIPictureService = pictureRetrofit.create(IPictureService.class);
+
+        //---------------------新闻模块的果壳、微信、It、知乎日报--------
+        mIGuoKrService = guokrRetrofit.create(IGuoKrService.class);
+
+        mIWeiXinService = weiXinRetrofit.create(IWeiXinService.class);
     }
 
     public static RetrofitManager getInstance() {
@@ -150,6 +185,15 @@ public class RetrofitManager {
         return mIPictureService;
     }
 
+    public IGuoKrService getIGuoKrService() {
+
+        return mIGuoKrService;
+    }
+
+    public IWeiXinService getIWeiXinService() {
+
+        return mIWeiXinService;
+    }
 }
 
 

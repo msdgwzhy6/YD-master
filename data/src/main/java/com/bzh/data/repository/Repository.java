@@ -7,11 +7,19 @@ import com.bzh.data.film.DetailEntity;
 import com.bzh.data.film.FilmNetWorkDataStore;
 import com.bzh.data.film.IFilmDataStore;
 import com.bzh.data.film.IFilmService;
+import com.bzh.data.guokr.GuoKrNetWorkDataStore;
+import com.bzh.data.guokr.IGuoKrDataStore;
+import com.bzh.data.guokr.IGuoKrService;
+import com.bzh.data.guokr.bean.GuokrHotItem;
 import com.bzh.data.image.ImageResponse;
 import com.bzh.data.picture.IPictureDataStore;
 import com.bzh.data.picture.IPictureService;
 import com.bzh.data.picture.PictureNetWorkDataStore;
 import com.bzh.data.picture.bean.MeiNvs;
+import com.bzh.data.weixin.IWeiXinDataStore;
+import com.bzh.data.weixin.IWeiXinService;
+import com.bzh.data.weixin.WeiXinNetWorkDataStore;
+import com.bzh.data.weixin.bean.WeixinNews;
 import com.bzh.data.zhihu.ZhihuRequest;
 
 import java.util.ArrayList;
@@ -29,7 +37,8 @@ import rx.Observable;
  * <b>修订历史</b>：　<br>
  * ==========================================================<br>
  */
-public class Repository implements IFilmDataStore,IPictureDataStore{
+public class Repository implements IFilmDataStore,IPictureDataStore,IGuoKrDataStore,
+        IWeiXinDataStore{
 
     private static volatile Repository repository;
 
@@ -37,7 +46,9 @@ public class Repository implements IFilmDataStore,IPictureDataStore{
     
     private static volatile IPictureService mIPictureService;
 
+    private static volatile IGuoKrService mIGuoKrService;
 
+    private static volatile IWeiXinService mIWeiXinService;
     public static Repository getInstance() {
 
         Repository tmp = repository;
@@ -49,6 +60,11 @@ public class Repository implements IFilmDataStore,IPictureDataStore{
                     repository = tmp;
                     filmService = RetrofitManager.getInstance().getFilmService();
                     mIPictureService = RetrofitManager.getInstance().getIPictureService();
+                    
+                    //--------------果壳的service--------
+                    mIGuoKrService = RetrofitManager.getInstance().getIGuoKrService();
+
+                    mIWeiXinService = RetrofitManager.getInstance().getIWeiXinService();
                 }
             }
         }
@@ -58,6 +74,8 @@ public class Repository implements IFilmDataStore,IPictureDataStore{
     private Repository() {
 
     }
+    
+    //---------------------------电影------------
 
     private FilmNetWorkDataStore filmNetWorkDataStore;
 
@@ -69,6 +87,8 @@ public class Repository implements IFilmDataStore,IPictureDataStore{
         }
         return filmNetWorkDataStore;
     }
+    
+    //----------------------------图片-------------
 
     private IPictureDataStore mIPictureDataStore;
 
@@ -81,7 +101,32 @@ public class Repository implements IFilmDataStore,IPictureDataStore{
         return mIPictureDataStore;
     }
 
+    //----------------------------果壳--------------
 
+    private IGuoKrDataStore mIGuoKrDataStore;
+
+    private IGuoKrDataStore getIGuoKrDataStore() {
+
+        if (mIGuoKrDataStore==null) {
+            mIGuoKrDataStore = new GuoKrNetWorkDataStore(mIGuoKrService);
+        }
+
+        return mIGuoKrDataStore;
+    }
+
+    //----------------------------微信--------------
+
+    private IWeiXinDataStore mIWeiXinDataStore;
+
+    private IWeiXinDataStore getIWeiXinDataStore() {
+
+        if (mIWeiXinDataStore==null) {
+            mIWeiXinDataStore = new WeiXinNetWorkDataStore(mIWeiXinService);
+        }
+
+        return mIWeiXinDataStore;
+    }
+    
     @Override
     public Observable<ArrayList<BaseInfoEntity>> getDomestic(@IntRange(from = 1, to = 87) int index) {
 
@@ -122,5 +167,19 @@ public class Repository implements IFilmDataStore,IPictureDataStore{
     public Observable<List<MeiNvs.ImgsEntity>> getMeiNv(String col, @IntRange(from = 1, to = 99) int pn
                                                         ) {
         return getIPictureDataStore().getMeiNv(col,pn);
+    }
+    
+    //------------------------果壳热门的数据源------------
+
+    @Override
+    public Observable<List<GuokrHotItem>> getGuoKrHotItems(int offset) {
+
+        return getIGuoKrDataStore().getGuoKrHotItems(offset);
+    }
+
+    @Override
+    public Observable<List<WeixinNews>> getWeixin(int page) {
+
+        return getIWeiXinDataStore().getWeixin(page);
     }
 }

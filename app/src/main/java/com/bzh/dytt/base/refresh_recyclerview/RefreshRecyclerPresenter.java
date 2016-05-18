@@ -1,5 +1,6 @@
 package com.bzh.dytt.base.refresh_recyclerview;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.bzh.common.context.GlobalContext;
 import com.bzh.dytt.base.basic.BaseActivity;
 import com.bzh.dytt.base.basic.BaseFragment;
 import com.bzh.dytt.base.basic.IPaging;
@@ -24,12 +26,6 @@ import rx.schedulers.Schedulers;
 
 /**
  * ==========================================================<br>
- * <b>版权</b>：　　　别志华 版权所有(c)2016<br>
- * <b>作者</b>：　　  biezhihua@163.com<br>
- * <b>创建日期</b>：　16-3-20<br>
- * <b>描述</b>：　　　<br>
- * <b>版本</b>：　    V1.0<br>
- * <b>修订历史</b>：　<br>
  * ==========================================================<br>
  */
 public abstract class RefreshRecyclerPresenter<Entity, Entities>
@@ -42,6 +38,8 @@ public abstract class RefreshRecyclerPresenter<Entity, Entities>
     private static final String TAG = "REPresenter";
 
     private RecyclerView.LayoutManager mLinearLayoutManager;
+
+    protected Context mContext = GlobalContext.getInstance();
 
     /**
      * The definition of a page request data mode

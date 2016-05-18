@@ -12,6 +12,7 @@ import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseActivity;
 import com.bzh.dytt.base.basic.IActivityPresenter;
 import com.bzh.dytt.film.FilmMainFragment;
+import com.bzh.dytt.news.NewsMainFragment;
 import com.bzh.dytt.picture.PictureMainFragment;
 import com.bzh.dytt.setting_about.SettingsActivity;
 import com.bzh.dytt.video.VideoFragment;
@@ -135,7 +136,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
         switch (id) {
             case R.id.nav_news: {
                 iMainView.setCurrentItem(0);
-                iMainView.setTitle("新闻阅读");
+                iMainView.setTitle("");
             }
             break;
             case R.id.nav_film: {
@@ -207,17 +208,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
             case PICTURE:
                 return PictureMainFragment.newInstance();
             case NEWS:
-                return new VideoFragment();
-            /*case NEWS:
-                return TvMainFragment.newInstance();
-            case VIDEO:
-                return VarietyMainFragment.newInstance();
-            case PICTURE:
-                return ComicMainFragment.newInstance();
-            case GAME:
-                return GameMainFragment.newInstance();
-            case MEIZI:
-                return MeiZiFragment.newInstance();*/
+                return NewsMainFragment.newInstance();
         }
         throw new RuntimeException("没有指定类型的Fragment");
     }
