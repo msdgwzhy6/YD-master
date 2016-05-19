@@ -10,6 +10,7 @@ import com.bzh.data.film.IFilmService;
 import com.bzh.data.guokr.GuoKrNetWorkDataStore;
 import com.bzh.data.guokr.IGuoKrDataStore;
 import com.bzh.data.guokr.IGuoKrService;
+import com.bzh.data.guokr.bean.GuokrArticle;
 import com.bzh.data.guokr.bean.GuokrHotItem;
 import com.bzh.data.image.ImageResponse;
 import com.bzh.data.picture.IPictureDataStore;
@@ -175,6 +176,12 @@ public class Repository implements IFilmDataStore,IPictureDataStore,IGuoKrDataSt
     public Observable<List<GuokrHotItem>> getGuoKrHotItems(int offset) {
 
         return getIGuoKrDataStore().getGuoKrHotItems(offset);
+    }
+
+    @Override
+    public Observable<GuokrArticle> getGuokrArticle(String id) {
+
+        return getIGuoKrDataStore().getGuokrArticle(id);
     }
 
     @Override

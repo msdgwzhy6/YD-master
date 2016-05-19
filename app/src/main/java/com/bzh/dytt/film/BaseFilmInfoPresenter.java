@@ -70,6 +70,8 @@ public abstract class BaseFilmInfoPresenter extends RefreshRecyclerPresenter<Bas
     public void onItemClick(ExViewHolder viewHolder) {
 
         super.onItemClick(viewHolder);
+
+        
         BaseInfoEntity baseInfoEntity = getCommonAdapter().getData().get(viewHolder.getAdapterPosition());
         DetailFragment.launch(getBaseActivity(), baseInfoEntity.getUrl());
     }

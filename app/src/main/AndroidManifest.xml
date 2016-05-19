@@ -63,6 +63,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/OrangeTheme"/>
 
+
+        <activity
+            android:name=".news.weixin.WeixinNewsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/OrangeTheme"/>
+        <activity
+            android:name=".news.guokr.GuoKrStoryActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/OrangeTheme"/>
+        
         <activity
             android:name=".picture.PictureActivity"
             android:launchMode="singleTask"/>

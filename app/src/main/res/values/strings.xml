@@ -39,6 +39,8 @@
     <string name="ask_saving_picture">保存到手机？</string>
     <string name="title_activity_picture">PictureActivity</string>
     <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
+    <string name="open_with_browser">请用浏览器君打开呢</string>
+    <string name="comon_retry">重试呢</string>
 
 
 </resources>
