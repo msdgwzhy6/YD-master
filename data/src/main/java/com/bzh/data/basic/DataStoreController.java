@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.bzh.common.utils.SystemUtils;
 import com.bzh.data.exception.TaskException;
 import com.bzh.data.film.DetailEntity;
-import com.bzh.data.meizi.MeiZiNetWorkDataStore;
 import com.bzh.log.MyLog;
 import com.google.gson.Gson;
 
@@ -121,7 +120,7 @@ public class DataStoreController {
     private Func1<ResponseBody, String> transformCharset;
     private Func1<String, ArrayList<BaseInfoEntity>> listFun;
     private Func1<String, DetailEntity> filmDetailFun;
-    private Func1<String, ArrayList<MeiZiEntity>> meiziListFun;
+//    private Func1<String, ArrayList<MeiZiEntity>> meiziListFun;
     ///////////////////////////////////////////////////////////////////////////
 
     private void fillFormat(String regular, String splitRegular, DetailEntity entity, String html) {
@@ -306,12 +305,12 @@ public class DataStoreController {
         return getObservable(observable, getTransformCharset(), getDetailFun());
     }
 
-    @NonNull
+    /*@NonNull
     public Observable<ArrayList<MeiZiEntity>> getNewWorkMeiZiObservable(final Observable<ResponseBody> observable) {
         return getObservable(observable, getTransformCharset(), getMeiZiFun());
-    }
+    }*/
 
-    private Func1<String, ArrayList<MeiZiEntity>> getMeiZiFun() {
+    /*private Func1<String, ArrayList<MeiZiEntity>> getMeiZiFun() {
         if (meiziListFun == null) {
             meiziListFun = new Func1<String, ArrayList<MeiZiEntity>>() {
                 @Override
@@ -337,7 +336,7 @@ public class DataStoreController {
             };
         }
         return meiziListFun;
-    }
+    }*/
 
     @NonNull
     private Func1<String, ArrayList<BaseInfoEntity>> getListFun() {

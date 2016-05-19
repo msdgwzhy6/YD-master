@@ -136,7 +136,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
         switch (id) {
             case R.id.nav_news: {
                 iMainView.setCurrentItem(0);
-                iMainView.setTitle("");
+                iMainView.setTitle("先闻先得");
             }
             break;
             case R.id.nav_film: {
@@ -146,7 +146,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
             break;
             case R.id.nav_video: {
                 iMainView.setCurrentItem(2);
-                iMainView.setTitle("视频爽看");
+                iMainView.setTitle("视频爽播");
             }
             break;
             case R.id.nav_picture: {

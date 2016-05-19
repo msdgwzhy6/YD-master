@@ -56,7 +56,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (activityConfig.isApplyEventBus) {
             EventBus.getDefault().register(this);
         }
-        
+
+        /*//状态栏适配
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // Translucent status bar
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        */
     }
 
     public void addSubscription(Subscription s) {
