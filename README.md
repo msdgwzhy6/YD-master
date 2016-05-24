@@ -13,7 +13,7 @@
 - 10.使用ToolBar进行全版本状态栏适配。
 - 11.FloatingActionButton自定义动作。
 
--[GIF](https://github.com/JadynAi/YD-master/blob/master/GIF.gif)
+![GIF](https://github.com/JadynAi/YD-master/blob/master/GIF.gif)
 
 5月初进行了一次项目重构
 
