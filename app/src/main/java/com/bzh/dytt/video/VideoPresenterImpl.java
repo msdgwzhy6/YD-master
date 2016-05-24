@@ -19,9 +19,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by 蔡小木 on 2016/4/23 0023.
- */
 public class VideoPresenterImpl extends BasePresenterImpl implements IVideoPresenter {
 
     private IVideoFragment mIVideoFragment;

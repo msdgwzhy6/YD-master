@@ -13,8 +13,6 @@ import com.bzh.dytt.R;
 import java.lang.reflect.Method;
 
 /**
- * ========================================================== <br>
- * ========================================================== <br>
  */
 public class FragmentContainerActivity extends BaseActivity {
 

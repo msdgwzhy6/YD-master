@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- */
 public class WeiboVideoBlog implements Parcelable {
 
     @SerializedName("mblog")

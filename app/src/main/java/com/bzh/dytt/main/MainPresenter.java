@@ -141,7 +141,7 @@ public class MainPresenter implements IActivityPresenter, NavigationView.OnNavig
             break;
             case R.id.nav_film: {
                 iMainView.setCurrentItem(1);
-                iMainView.setTitle("最热电影");
+                iMainView.setTitle("电影速递");
             }
             break;
             case R.id.nav_video: {

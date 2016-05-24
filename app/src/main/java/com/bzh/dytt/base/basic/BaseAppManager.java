@@ -46,12 +46,6 @@ import android.app.Activity;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Author:  Tau.Chen
- * Email:   1076559197@qq.com | tauchen1990@gmail.com
- * Date:    2015/3/9.
- * Description:
- */
 public class BaseAppManager {
 
     private static final String TAG = BaseAppManager.class.getSimpleName();

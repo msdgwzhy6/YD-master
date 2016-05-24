@@ -81,17 +81,18 @@ public class SplashPresenterImpl implements Presenter {
 
         DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.DATE_FIELD);
         String date = dateFormat.format(new Date());
-        
-        final String today=date;
-        
+
+        final String today = date;
+
         Animation animation = mSplashInteractor.getBackgroundImageAnimation(mContext);
         animation.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
             public void onAnimationStart(Animation animation) {
-                if (!sharedPreferences.getString(SharePreferenceUtil.IMAGE_GET_TIME, "").equals(today) && 
+
+                if (!sharedPreferences.getString(SharePreferenceUtil.IMAGE_GET_TIME, "").equals(today) &&
                         SharePreferenceUtil
-                        .isChangeThemeAuto(mContext)) {
+                                .isChangeThemeAuto(mContext)) {
 
                    /* //判断权限
                     if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != 
@@ -103,12 +104,13 @@ public class SplashPresenterImpl implements Presenter {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        ActivityCompat.requestPermissions(SplashActivity.this, new String[] {Manifest.permission
+                                        ActivityCompat.requestPermissions(SplashActivity.this, new String[] {Manifest
+                                        .permission
                                                 .READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_REQUEST_CODE);
                                     }
                                 }).setCancelable(false).show();
                     } */
-                    
+
                     getBackground();
                 }
             }
@@ -133,6 +135,18 @@ public class SplashPresenterImpl implements Presenter {
 //将推按的日期啊什么的存储起来
 //                        mSplashView.navigateToHomePage();
 //                        mSplashView.navigateToHomePage();
+        
+        /*
+        使用颜色现在,我们已经获取Palette对象,接下来我们只要从中提取到对象就可以了.这里我们需要提到一个类Swatch,这个类里面保存了我们从bitmap里面提取到的颜色.这里要提一下,
+        使用Palette理论上可以提取到16种颜色,但是我们使用比较多的有一下6中颜色
+
+    Vibrant 有活力的颜色,比如一张大海的照片可以就是指代活力蓝这样子的颜色
+    Vibrant dark 有活力的暗色系….这个大家可以自行脑补一下应该是什么样子
+    Vibrant light 有活力的亮色系
+    Muted 柔和型
+    Muted dark 柔和型的暗色
+    Muted light 柔和型的亮色
+         */
         mSubscription = Repository.getInstance().getImage().subscribeOn(Schedulers.io()).
                 map(new Func1<ImageResponse, Boolean>() {
 
@@ -221,5 +235,5 @@ public class SplashPresenterImpl implements Presenter {
         return ContextCompat.getColor(mContext, primaryInt[new Random().nextInt(14)]);
     }
 
-    
+
 }

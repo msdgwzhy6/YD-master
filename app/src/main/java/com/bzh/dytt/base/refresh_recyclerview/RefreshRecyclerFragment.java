@@ -17,14 +17,6 @@ import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.BindView;
 
-/**
- * ==========================================================<br>
- * <b>创建日期</b>：　16-3-20<br>
- * <b>描述</b>：　　　<br>
- * <b>版本</b>：　    V1.0<br>
- * <b>修订历史</b>：　<br>
- * ==========================================================<br>
- */
 public abstract class RefreshRecyclerFragment extends PageFragment implements RefreshRecyclerView {
 
     private static final String TAG = "PageFragment";

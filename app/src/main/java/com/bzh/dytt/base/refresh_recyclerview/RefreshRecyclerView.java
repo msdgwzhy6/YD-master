@@ -6,10 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import com.bzh.dytt.base.basic_pageswitch.IPageView;
 import com.bzh.recycler.ExRecyclerView;
 
-/**
- * ==========================================================<br>
- * ==========================================================<br>
- */
 public interface RefreshRecyclerView extends IPageView {
 
     boolean isRefreshing();

@@ -3,9 +3,6 @@ package com.bzh.dytt.video;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-/**
- * Created by 蔡小木 on 2016/4/29 0029.
- */
 public class BasePresenterImpl implements BasePresenterV {
 
     private CompositeSubscription mCompositeSubscription;

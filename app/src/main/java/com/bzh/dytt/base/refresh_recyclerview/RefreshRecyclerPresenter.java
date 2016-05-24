@@ -24,10 +24,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * ==========================================================<br>
- * ==========================================================<br>
- */
 public abstract class RefreshRecyclerPresenter<Entity, Entities>
         extends PagePresenter
         implements
