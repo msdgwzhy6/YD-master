@@ -16,13 +16,14 @@
 
 package com.bzh.dytt.splash;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
-import android.view.animation.Animation;
+import android.util.Log;
 
 import com.bzh.common.utils.SharePreferenceUtil;
 import com.bzh.data.image.ImageResponse;
@@ -46,7 +47,7 @@ import rx.schedulers.Schedulers;
 
 /**
  */
-public class SplashPresenterImpl implements Presenter {
+public class SplashPresenterImpl implements Presenter, Animator.AnimatorListener {
 
     private SharedPreferences sharedPreferences;
 
@@ -57,6 +58,8 @@ public class SplashPresenterImpl implements Presenter {
     private SplashInteractor mSplashInteractor = null;
 
     private Subscription mSubscription;
+
+    private String mToday;
 
     public SplashPresenterImpl(Context context, SplashView splashView) {
 
@@ -82,10 +85,15 @@ public class SplashPresenterImpl implements Presenter {
         DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.DATE_FIELD);
         String date = dateFormat.format(new Date());
 
-        final String today = date;
+        mToday = date;
 
-        Animation animation = mSplashInteractor.getBackgroundImageAnimation(mContext);
-        animation.setAnimationListener(new Animation.AnimationListener() {
+//        Animation animation = mSplashInteractor.getBackgroundImageAnimation(mContext);
+
+        mSplashView.animateBackgroundImage();
+
+        mSplashView.addAnimListener(this);
+        
+        /*animation.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
             public void onAnimationStart(Animation animation) {
@@ -94,7 +102,7 @@ public class SplashPresenterImpl implements Presenter {
                         SharePreferenceUtil
                                 .isChangeThemeAuto(mContext)) {
 
-                   /* //判断权限
+                    //判断权限
                     if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != 
                             PackageManager
                             .PERMISSION_GRANTED) {
@@ -109,15 +117,17 @@ public class SplashPresenterImpl implements Presenter {
                                                 .READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_REQUEST_CODE);
                                     }
                                 }).setCancelable(false).show();
-                    } */
+                    } 
 
                     getBackground();
                 }
+                    Log.d("动画", "动画开始");
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
 
+                Log.d("动画", "动画结束");
                 mSplashView.navigateToHomePage();
             }
 
@@ -125,8 +135,14 @@ public class SplashPresenterImpl implements Presenter {
             public void onAnimationRepeat(Animation animation) {
 
             }
-        });
-        mSplashView.animateBackgroundImage(animation);
+        });*/
+
+        if (!sharedPreferences.getString(SharePreferenceUtil.IMAGE_GET_TIME, "").equals(mToday) &&
+                SharePreferenceUtil
+                        .isChangeThemeAuto(mContext)) {
+            getBackground();
+        }
+
     }
 
     public void getBackground() {
@@ -236,4 +252,26 @@ public class SplashPresenterImpl implements Presenter {
     }
 
 
+    @Override
+    public void onAnimationStart(Animator animation) {
+
+        Log.d("动画", "动画开始");
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animation) {
+
+        mSplashView.navigateToHomePage();
+        Log.d("动画", "动画结束");
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {
+
+    }
 }

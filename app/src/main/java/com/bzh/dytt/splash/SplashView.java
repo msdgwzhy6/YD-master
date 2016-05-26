@@ -16,14 +16,14 @@
 
 package com.bzh.dytt.splash;
 
-import android.view.animation.Animation;
-
 /**
  * 景通
  */
 public interface SplashView {
 
-    void animateBackgroundImage(Animation animation);
+    void animateBackgroundImage();
+
+    void addAnimListener(SplashPresenterImpl presenter);
 
     void initializeViews(String versionName, String copyright, int backgroundResId);
 
