@@ -40,7 +40,7 @@ public abstract class TabLayoutPresenter implements IFragmentPresenter {
     public void initFragmentConfig() {
 
         myViewPagerAdapter = new MyViewPagerAdapter(baseFragment.getChildFragmentManager());
-        tabLayoutIView.initContainer(myViewPagerAdapter);
+        tabLayoutIView.initContainer(myViewPagerAdapter,mItems.size());
         tabLayoutIView.initTabLayout();
     }
 

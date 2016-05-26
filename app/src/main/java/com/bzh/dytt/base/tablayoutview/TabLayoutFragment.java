@@ -55,9 +55,9 @@ public abstract class TabLayoutFragment extends BaseFragment implements TabLayou
     }
 
     @Override
-    public void initContainer(PagerAdapter pagerAdapter) {
+    public void initContainer(PagerAdapter pagerAdapter,int limit) {
 
-        container.setOffscreenPageLimit(0);
+        container.setOffscreenPageLimit(limit);
         container.setAdapter(pagerAdapter);
     }
 
