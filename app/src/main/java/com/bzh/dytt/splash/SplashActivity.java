@@ -50,7 +50,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
         mSplashPresenter.initialized();
 
         //Activity动画效果
-//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
     }
 
@@ -71,7 +71,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
 
         mAnim = ObjectAnimator
                 .ofFloat(mSplashImage, "zhy", 1.0F,  1.2F)
-                .setDuration(2500);
+                .setDuration(2800);
         
         
         mAnim.start();
@@ -81,7 +81,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
             public void onAnimationUpdate(ValueAnimator animation)
             {
                 float cVal = (Float) animation.getAnimatedValue();
-                mSplashImage.setAlpha(cVal);
+                mSplashImage.setAlpha(1.8F-cVal);
                 mSplashImage.setScaleX(cVal);
                 mSplashImage.setScaleY(cVal);
             }
