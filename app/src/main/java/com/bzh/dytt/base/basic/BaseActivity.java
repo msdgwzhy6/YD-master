@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.WindowManager;
 
 import com.bzh.common.utils.SharePreferenceUtil;
 import com.bzh.dytt.base.eventbus.EventCenter;
@@ -51,14 +53,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             EventBus.getDefault().register(this);
         }
 
-        /*//状态栏适配
+        //状态栏适配
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // Translucent status bar
             getWindow().setFlags(
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        */
     }
 
     public void addSubscription(Subscription s) {
@@ -159,6 +160,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(mutedColor));
         if (isChangeToolbar)
             toolbar.setBackgroundColor(vibrantColor);
+
+        Log.e("标题", "标题" + SharePreferenceUtil.isImmersiveMode(this));
+        
         if (isChangeStatusBar) {
             if (SharePreferenceUtil.isImmersiveMode(this))
                 StatusBarUtil.setColorNoTranslucent(this, vibrantColor);

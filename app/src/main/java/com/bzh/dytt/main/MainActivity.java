@@ -3,6 +3,7 @@ package com.bzh.dytt.main;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -21,10 +22,15 @@ import com.bzh.common.utils.SharePreferenceUtil;
 import com.bzh.dytt.R;
 import com.bzh.dytt.base.basic.BaseActivity;
 import com.bzh.dytt.base.widget.XViewPager;
+import com.bzh.dytt.setting_about.RxBus;
+import com.bzh.dytt.setting_about.StatusBarEvent;
 
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.functions.Action1;
 
 
 public class MainActivity extends BaseActivity
@@ -34,8 +40,11 @@ public class MainActivity extends BaseActivity
 
     ActionBarDrawerToggle toggle;
 
-    @BindView(R.id.toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.main_coord)
+    CoordinatorLayout mCoordinatorLayout;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
@@ -43,17 +52,17 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    @BindView(R.id.viewPager)
+    @BindView(R.id.main_viewPager)
     XViewPager container;
 
-//    private CircleImageView iv_head;
-
-//    private ImageView iv_header_view_background;
+    public Subscription rxSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        ButterKnife.bind(this);
         /*iv_head = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_head);
         iv_header_view_background = (ImageView) navigationView.getHeaderView(0).findViewById(R.id
                 .iv_header_view_background);*/
@@ -62,9 +71,12 @@ public class MainActivity extends BaseActivity
         LinearLayout llImage = (LinearLayout) headerLayout.findViewById(R.id.side_image);
         TextView imageDescription = (TextView) headerLayout.findViewById(R.id.image_description);
 
+        toolbar.setTitle("一点");
+        setSupportActionBar(toolbar);
+
         //设置toolbar颜色
         setToolBar(null, toolbar, true, false, drawer);
-        
+
         if (new File(getFilesDir().getPath() + "/bg.jpg").exists()) {
             BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), getFilesDir().getPath() + "/bg.jpg");
             llImage.setBackground(bitmapDrawable);
@@ -81,6 +93,14 @@ public class MainActivity extends BaseActivity
 
         mainA = new MainPresenter(this, this);
         mainA.onCreate(savedInstanceState);
+
+        rxSubscription = RxBus.getDefault().toObservable(StatusBarEvent.class)
+                .subscribe(new Action1<StatusBarEvent>() {
+                    @Override
+                    public void call(StatusBarEvent statusBarEvent) {
+                        recreate();
+                    }
+                });
     }
 
     @Override
@@ -185,8 +205,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void initToolbar(String title) {
 
-        toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
+        
     }
 
     @Override
